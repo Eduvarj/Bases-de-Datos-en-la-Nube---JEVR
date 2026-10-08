@@ -1,0 +1,14 @@
+//Crear una colección llamada: utt_store
+//Si no esta la crea de lo contra lo abre
+
+use("utt_store")
+
+db.products.insertOne({
+    name : "Product 1", 
+    price : 1000
+})
+
+db.products.insertOne({
+    name : "Product 2",
+    price : 100
+})

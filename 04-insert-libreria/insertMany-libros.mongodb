@@ -1,0 +1,18 @@
+use ("utt_libreria")
+
+db.libros.insertMany(
+    [
+        {
+            codigo: 3,
+            nombre: 'Aprende PHP en 21 días',
+            autor: 'Mario Molina',
+            editoriales: ['Planeta'],
+        },
+        {
+            codigo: 4,
+            nombre: 'Java en 10 minutos',
+            autor: 'Barros Sergio',
+            editoriales: ['Planeta', 'Siglo XXI']
+        }
+    ]
+)

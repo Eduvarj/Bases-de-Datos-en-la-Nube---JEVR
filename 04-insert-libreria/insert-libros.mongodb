@@ -1,0 +1,71 @@
+use ("utt_libreria")
+
+db.libros.insertOne(
+    {
+        codigo: 1,
+        nombre: 'El eleph',
+        autor: 'Borges',
+        editoriales: ['Planeta', 'Siglo XXI'],
+    }
+)
+
+db.libros.insertOne(
+    {
+        codigo: 2,
+        nombre: 'Martin Fierro',
+        autor: 'José Hernández',
+        editoriales: ['Planeta']
+    }
+)
+
+// Clase 7 de Octubre
+
+use ("clientes")
+
+db.clientes.insertOne(
+    {
+        _id: 1,
+        nombre: 'Lopez Marcos',
+        estado: 'Chihuahua',
+    }
+)
+// Nos retorna un JSON informando el resultado de la inserción,
+//mediantes un objeto con 2 campos el primero
+//acknowledged, que indica que el documento fue admitido en la collección
+//y el _id, que en este caso lo define el usuario de BD.
+//
+//Si se produce un error nos genera un objeto JSON con otra estuctura 
+//errmsg, con un mensaje de error.
+
+//otros comandos;
+
+show dbs
+local
+config
+clientes
+
+use ("clientes")
+show collections
+clienteslibros
+
+//Borrar bases de datos, colecciones a todos los documentos de una colección
+
+use ("utt_libreria")
+db.libros.deleteMany({})
+show collections
+
+//Debemos de pasar un objeto vacio {}
+// Se borra solo los documentos que cumplan con la condición
+
+{
+    _id: 3,
+    nombre: 'Aprende PHP en 21 días',
+    autor: 'Mario Molina',
+    editoriales: ['Siglo XXI', 'Planeta'],
+    precio: 50,
+    cantidad: 20
+},
+{
+    _id: 4,
+    nombre: 'Java '
+}

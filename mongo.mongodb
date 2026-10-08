@@ -1,0 +1,4 @@
+use ("sample_training");
+
+//Jesus Eduardo Vazquez Rodriguez 7°A
+db.zips.aggregate([{$group:{_id:{state:"$state",city:"$city"},poblacionCiudad:{$sum:"$pop"}}},{$sort:{"_id.state":1,poblacionCiudad:-1}},{$group:{_id:"$_id.state",ciudadMasPoblada:{$first:"$_id.city"},poblacion:{$first:"$poblacionCiudad"}}},{$sort:{_id:1}}]);

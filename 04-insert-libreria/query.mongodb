@@ -1,0 +1,3 @@
+use ("utt_libreria")
+
+db.libros.find()
