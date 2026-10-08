@@ -1,0 +1,122 @@
+use ("sample_restaurants");
+
+//Jesus Eduardo Vazquez Rodriguez 7° “A”
+db.restaurants.aggregate([
+  {$group:{_id:{borough:"$borough",cuisine:"$cuisine"},cantidad:{$sum:1}}},
+  {$sort:{cantidad:-1}},{$limit:15}
+]);
+
+
+
+
+//Jesus Eduardo Vazquez Rodriguez 7° “A”
+db.restaurants.aggregate([
+  {$unwind:"$grades"},
+  {$group:{_id:"$borough",scorePromedio:{$avg:"$grades.score"}}},
+  {$sort:{scorePromedio:1}}
+]);
+
+
+
+
+//Jesus Eduardo Vazquez Rodriguez 7° “A”
+db.restaurants.aggregate([
+  {$unwind:"$grades"},
+  {$group:{_id:"$borough",scorePromedio:{$avg:"$grades.score"}}},
+  {$sort:{scorePromedio:1}}
+]);
+
+
+
+
+//Jesus Eduardo Vazquez Rodriguez 7° “A”
+db.restaurants.aggregate([
+  {$match:{$expr:{$gte:[{$size:"$grades"},4]}}},
+  {$project:{_id:0,name:1,borough:1,cuisine:1,cantidadEvaluaciones:{$size:"$grades"}}}
+]);
+
+
+
+
+//Jesus Eduardo Vazquez Rodriguez 7° “A”
+db.restaurants.aggregate([
+  {$unwind:"$grades"},
+  {$group:{_id:"$restaurant_id",name:{$first:"$name"},borough:{$first:"$borough"},ultimaEvaluacion:{$max:"$grades.date"}}},
+  {$sort:{ultimaEvaluacion:-1}}
+]);
+
+
+
+
+//Jesus Eduardo Vazquez Rodriguez 7° “A”
+db.restaurants.aggregate([
+  {$unwind:"$grades"},
+  {$group:{_id:"$cuisine",evaluaciones:{$sum:1},scorePromedio:{$avg:"$grades.score"}}},
+  {$match:{evaluaciones:{$gte:100}}},
+  {$sort:{scorePromedio:-1}}
+]);
+
+
+
+
+//Jesus Eduardo Vazquez Rodriguez 7° “A”
+db.restaurants.aggregate([
+  {$group:{_id:"$address.zipcode",cantidadRestaurantes:{$sum:1}}},
+  {$sort:{cantidadRestaurantes:-1}},{$limit:20}
+]);
+
+
+
+
+//Jesus Eduardo Vazquez Rodriguez 7° “A”
+db.restaurants.aggregate([
+  {$unwind:"$grades"},
+  {$match:{"grades.date":{$gte:ISODate("2014-01-01")}}},
+  {$group:{_id:{borough:"$borough",grade:"$grades.grade"},evaluaciones:{$sum:1},scorePromedio:{$avg:"$grades.score"}}},
+  {$sort:{"_id.borough":1,evaluaciones:-1}}
+]);
+
+
+
+
+//Jesus Eduardo Vazquez Rodriguez 7° “A”
+db.restaurants.aggregate([
+  {$unwind:"$grades"},
+  {$group:{_id:"$restaurant_id",name:{$first:"$name"},borough:{$first:"$borough"},scorePromedio:{$avg:"$grades.score"}}},
+  {$sort:{borough:1,scorePromedio:-1}},
+  {$group:{_id:"$borough",restaurantePeor:{$first:"$name"},scorePeor:{$first:"$scorePromedio"}}}
+]);
+
+
+
+
+//Jesus Eduardo Vazquez Rodriguez 7° “A”
+db.restaurants.aggregate([
+  {$unwind:"$grades"},
+  {$group:{_id:"$cuisine",evaluaciones:{$sum:1},scorePromedio:{$avg:"$grades.score"},restaurantes:{$addToSet:"$restaurant_id"}}},
+  {$project:{_id:0,cuisine:"$_id",evaluaciones:1,scorePromedio:1,restaurantesDistintos:{$size:"$restaurantes"}}},
+  {$sort:{evaluaciones:-1}},{$limit:10}
+]);
+
+
+
+
+//Jesus Eduardo Vazquez Rodriguez 7° “A”
+db.restaurants.aggregate([
+  {$unwind:"$grades"},
+  {$group:{_id:{cuisine:"$cuisine",grade:"$grades.grade"},cantidad:{$sum:1}}},
+  {$sort:{"_id.cuisine":1,cantidad:-1}}
+]);
+
+
+
+
+//Jesus Eduardo Vazquez Rodriguez 7° “A”
+db.restaurants.find({
+  "address.coord":{
+    $geoWithin:{
+      $centerSphere:[[-73.97,40.75],1000/6378100]
+    }
+  }
+},{_id:0,name:1,cuisine:1,"address.coord":1});
+
